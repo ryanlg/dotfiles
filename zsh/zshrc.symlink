@@ -1,0 +1,31 @@
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
+
+export ZSH=$HOME/.dotfiles/zsh
+
+ZSH_THEME="spaceship"
+#DEFAULT_USER=Ryan
+
+plugins=(git aliases osx tmux zsh-autosuggestions docker zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+source $ZSH/config/fix.sh
+source /usr/local/etc/profile.d/z.sh
+
+alias newdot='cd ~/Documents/.dotfiles'
+alias olddot='cd ~/.dotfiles'
+alias ws='cd ~/workspace'
+alias jarvis='ssh jarvis@192.168.1.10'
+alias proxy='ALL_PROXY=http://192.168.1.10:8123 ' 
+alias refresh='.. && -'
+alias nascode='cd /Volumes/nas/code/'
+alias essays='cd /Users/Ryan/workspace/University/Essays'
+alias c='clear'
+alias j='jekyll'
+alias loadnvm=". /Users/Ryan/.nvm/nvm.sh"
+
+#For One Dark
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+#export NVM_DIR="/Users/Ryan/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
