@@ -22,6 +22,7 @@ brew install markdown
 brew install diff-so-fancy
 brew install zsh-syntax-highlighting
 brew install neovim/neovim/neovim
+brew install python3
 echo "=============================="
 
 exit 0

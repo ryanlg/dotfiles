@@ -1,26 +1,3 @@
-map <C-n> :NERDTreeToggle<CR>
-
-
-"let g:ycm_autoclose_preview_window_after_insertion = 1
-"let g:ycm_autoclose_preview_window_after_completion = 1
-let g:deoplete#enable_at_startup = 1
-"let g:echodoc_enable_at_startup = 1
-"let g:tern_show_signature_in_pum = 1
-"set noshowmode
-
-"set completeopt-=preview
-set splitbelow
-autocmd CompleteDone * pclose!
-
-let g:tern_request_timeout = 1
-let g:tern_show_signature_in_pum = '0'
-
-
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
-
-source ~/.config/nvim/plugins.vim
-
 " Section General {{{
 
 " Abbreviations
@@ -29,8 +6,11 @@ abbr teh the
 abbr tempalte template
 abbr fitler filter
 
+source ~/.config/nvim/plugins.vim " Plugin manager
+
 set nocompatible            " not compatible with vi
 set autoread                " detect when a file is changed
+set autowrite               " save on switching buffer
 
 set history=1000            " change history to 1000
 set textwidth=120
@@ -40,33 +20,48 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " }}}
 
+
 " Section User Interface {{{
+"
+" Use 24-bit (true-color) mode 
+set termguicolors
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " switch cursor to line when in insert mode, and block when not
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
-if &term =~ '256color'
-    " disable background color erase
-    set t_ut=
-endif
-
-if (empty($TMUX))
-  if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
+" always show status bar for powerline
+set laststatus=2
 
 syntax on
-colorscheme  one        " Set the colorscheme
+colorscheme one        " Set the colorscheme
 set background=dark
-set guifont=Menlo\ for\ Powerline\ 14
+" let g:lightline = {
+"       \ 'colorscheme': 'one',
+"       \ }
+" set guifont=Menlo\ for\ Powerline\ 20
+
+" airline options
+let g:airline_powerline_fonts=1
+let g:airline_theme='one'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
+let g:airline#extensions#tabline#tab_min_count = 2 " only show tabline if tabs are being used (more than 1 tab open)
+let g:airline#extensions#tabline#show_buffers = 1 " do not show open buffers in tabline
+let g:airline#extensions#tabline#show_splits = 1
+
+"airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 
 " make the highlighting of tabs and other non-text less annoying
 highlight SpecialKey ctermbg=none ctermfg=8
@@ -98,7 +93,6 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 set backspace=indent,eol,start
 
 " Tab control
-set noexpandtab             " insert tabs rather than spaces for <Tab>
 set smarttab                " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
 set tabstop=4               " the visible width of tabs
 set softtabstop=4           " edit as if the tabs are 4 characters wide
@@ -150,22 +144,12 @@ if has('mouse')
 	set mouse=a
 	" set ttymouse=xterm2
 endif
-
 " }}}
 
 " Section Mappings {{{
 
 " set a map leader for more key combos
-let mapleader = ','
-
-" remap esc
-inoremap jk <esc>
-
-" wipout buffer
-nmap <silent> <leader>b :bw<cr>
-
-" shortcut to save
-nmap <leader>, :w<cr>
+let mapleader = ';'
 
 " set paste toggle
 set pastetoggle=<leader>v
@@ -175,11 +159,9 @@ set pastetoggle=<leader>v
 
 " edit ~/.config/nvim/init.vim
 map <leader>ev :e! ~/.config/nvim/init.vim<cr>
-" edit gitconfig
-map <leader>eg :e! ~/.gitconfig<cr>
 
 " clear highlighted search
-noremap <space> :set hlsearch! hlsearch?<cr>
+nnoremap <space> <esc> :noh<cr><esc>
 
 " activate spell-checking alternatives
 nmap ;s :set invspell spelllang=en<cr>
@@ -190,14 +172,15 @@ nmap <leader>md :%!markdown --html4tags <cr>
 " remove extra whitespace
 nmap <leader><space> :%s/\s\+$<cr>
 
-
+" show white space
 nmap <leader>l :set list!<cr>
 
 " Textmate style indentation
-vmap <leader>[ <gv
-vmap <leader>] >gv
-nmap <leader>[ <<
-nmap <leader>] >>
+" () because I switched my ( key with [
+vmap <leader>( <gv
+vmap <leader>) >gv
+nmap <leader>( <<
+nmap <leader>) >>
 
 " switch between current and last buffer
 nmap <leader>. <c-^>
@@ -205,19 +188,18 @@ nmap <leader>. <c-^>
 " enable . command in visual mode
 vnoremap . :normal .<cr>
 
-map <silent> <C-h> :call functions#WinMove('h')<cr>
-map <silent> <C-j> :call functions#WinMove('j')<cr>
-map <silent> <C-k> :call functions#WinMove('k')<cr>
-map <silent> <C-l> :call functions#WinMove('l')<cr>
+" better panel nav
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+map <C-H> <C-W>H
+map <C-L> <C-W>L
 
-map <leader>wc :wincmd q<cr>
+" nav faster
+nmap <S-J> 6j
+nmap <S-K> 3k
 
 " toggle cursor line
 nnoremap <leader>i :set cursorline!<cr>
-
-" scroll the viewport faster
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj
@@ -226,22 +208,9 @@ nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
 
 " search for word under the cursor
-nnoremap <leader>/ "fyiw :/<c-r>f<cr>
-
-" inoremap <tab> <c-r>=Smart_TabComplete()<CR>
-
-map <leader>r :call RunCustomCommand()<cr>
-" map <leader>s :call SetCustomCommand()<cr>
-let g:silent_custom_command = 0
-
-" helpers for dealing with other people's code
-nmap \t :set ts=4 sts=4 sw=4 noet<cr>
-nmap \s :set ts=4 sts=4 sw=4 et<cr>
+nnoremap <leader>\ "fyiw :/<c-r>f<cr>
 
 nmap <leader>w :setf textile<cr> :Goyo<cr>
-
-nnoremap <silent> <leader>u :call functions#HtmlUnEscape()<cr>
-
 " }}}
 
 " Section AutoGroups {{{
@@ -251,134 +220,14 @@ augroup configgroup
 
     " automatically resize panes on resize
     autocmd VimResized * exe 'normal! \<c-w>='
+
+	" auto source
     autocmd BufWritePost .vimrc,.vimrc.local,init.vim source %
     autocmd BufWritePost .vimrc.local source %
+
     " save all files on focus lost, ignoring warnings about untitled buffers
     autocmd FocusLost * silent! wa
-
-    " make quickfix windows take all the lower section of the screen
-    " when there are multiple windows open
-    autocmd FileType qf wincmd J
-
-    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
-    let g:markdown_fenced_languages = ['css', 'javascript', 'js=javascript', 'json=javascript', 'stylus', 'html']
-
-    " autocmd! BufEnter * call functions#ApplyLocalSettings(expand('<afile>:p:h'))
-
-    autocmd BufNewFile,BufRead,BufWrite *.md syntax match Comment /\%^---\_.\{-}---$/
-
-    autocmd! BufWritePost * Neomake
 augroup END
 
 " }}}
 
-" Section Plugins {{{
-
-" FZF
-"""""""""""""""""""""""""""""""""""""
-
-" Toggle NERDTree
-nmap <silent> <leader>k :NERDTreeToggle<cr>
-" expand to the path of the file in the current buffer
-nmap <silent> <leader>y :NERDTreeFind<cr>
-
-let NERDTreeShowHidden=1
-let NERDTreeDirArrowExpandable = '▷'
-let NERDTreeDirArrowCollapsible = '▼'
-
-let g:fzf_layout = { 'down': '~25%' }
-
-if isdirectory(".git")
-    " if in a git project, use :GFiles
-    nmap <silent> <leader>t :GFiles<cr>
-else
-    " otherwise, use :FZF
-    nmap <silent> <leader>t :FZF<cr>
-endif
-
-nmap <silent> <leader>r :Buffers<cr>
-nmap <silent> <leader>e :FZF<cr>
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-nnoremap <silent> <Leader>C :call fzf#run({
-\   'source':
-\     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
-\         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
-\   'sink':    'colo',
-\   'options': '+m',
-\   'left':    30
-\ })<CR>
-
-command! FZFMru call fzf#run({
-\  'source':  v:oldfiles,
-\  'sink':    'e',
-\  'options': '-m -x +s',
-\  'down':    '40%'})
-
-
-" Fugitive Shortcuts
-"""""""""""""""""""""""""""""""""""""
-nmap <silent> <leader>gs :Gstatus<cr>
-nmap <leader>ge :Gedit<cr>
-nmap <silent><leader>gr :Gread<cr>
-nmap <silent><leader>gb :Gblame<cr>
-
-nmap <leader>m :MarkedOpen!<cr>
-nmap <leader>mq :MarkedQuit<cr>
-nmap <leader>* *<c-o>:%s///gn<cr>
-
-let g:neomake_javascript_jshint_maker = {
-    \ 'args': ['--verbose'],
-    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
-\ }
-
-let g:neomake_typescript_tsc_maker = {
-    \ 'args': ['-m', 'commonjs', '--noEmit' ],
-    \ 'append_file': 0,
-    \ 'errorformat':
-        \ '%E%f %#(%l\,%c): error %m,' .
-        \ '%E%f %#(%l\,%c): %m,' .
-        \ '%Eerror %m,' .
-        \ '%C%\s%\+%m'
-\ }
-
-" airline options
-let g:airline_powerline_fonts=1
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_theme='one'
-let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
-let g:airline#extensions#tabline#tab_min_count = 2 " only show tabline if tabs are being used (more than 1 tab open)
-let g:airline#extensions#tabline#show_buffers = 0 " do not show open buffers in tabline
-let g:airline#extensions#tabline#show_splits = 0
-
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-"airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-
-" don't hide quotes in json files
-let g:vim_json_syntax_conceal = 0
-
-let g:SuperTabCrMapping = 0
-
-" }}}
-
-" vim:foldmethod=marker:foldlevel=0
