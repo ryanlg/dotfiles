@@ -11,6 +11,13 @@ Plug 'vim-airline/vim-airline' " fancy statusline
 " Displays function signatures from completions in the command line.
 Plug 'Shougo/echodoc.vim'
 
+" remember your sessions when restarting
+Plug 'tpope/vim-obsession'
+
+Plug 'bling/vim-bufferline'
+
+Plug 'airblade/vim-gitgutter'
+
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy file finder and so much more
 Plug 'jiangmiao/auto-pairs' " automatic closing of quotes, parenthesis, brackets, etc.

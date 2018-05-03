@@ -95,8 +95,21 @@ bind -Tcopy-mode-vi 'y' send -X copy-pipe-and-cancel "tmux save-buffer - | reatt
 bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
 bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-buffer"
 
+#################
+###  Plugins  ###
+#################
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+
+### Plugin specifics ###
+# resurrect
+set -g @resurrect-strategy-nvim 'session' # restore nvim sessions
+
 ##############################
 ### Color & Style Settings ###
 ##############################
 
 source ~/.dotfiles/tmux/fuckingpowerline.sh
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.dotfiles/tmux/plugins/tpm/tpm'

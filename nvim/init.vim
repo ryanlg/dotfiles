@@ -48,8 +48,10 @@ let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
 let g:airline#extensions#tabline#tab_min_count = 2 " only show tabline if tabs are being used (more than 1 tab open)
-let g:airline#extensions#tabline#show_buffers = 1 " do not show open buffers in tabline
-let g:airline#extensions#tabline#show_splits = 1
+let g:airline#extensions#tabline#show_buffers = 1 " show open buffers in tabline
+" let g:airline#extensions#tabline#show_splits = 1
+
+let g:airline#extensions#bufferline#enabled = 1
 
 "airline symbols
 let g:airline_left_sep = ''
@@ -191,12 +193,14 @@ vnoremap . :normal .<cr>
 " better panel nav
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
-map <C-H> <C-W>H
-map <C-L> <C-W>L
+map <C-H> <C-W>h
+map <C-L> <C-W>l
 
 " nav faster
 nmap <S-J> 6j
+vmap <S-J> 6j
 nmap <S-K> 3k
+vmap <S-K> 3k
 
 " toggle cursor line
 nnoremap <leader>i :set cursorline!<cr>
@@ -211,6 +215,44 @@ nnoremap <silent> $ g$
 nnoremap <leader>\ "fyiw :/<c-r>f<cr>
 
 nmap <leader>w :setf textile<cr> :Goyo<cr>
+
+" list buffer and :buffer 
+nnoremap <C-B> :buffers<CR>:buffer<Space>
+
+" search for a buffer with file name and jump to it
+function! BufSel(pattern)
+  let bufcount = bufnr("$")
+  let currbufnr = 1
+  let nummatches = 0
+  let firstmatchingbufnr = 0
+  while currbufnr <= bufcount
+	if(bufexists(currbufnr))
+	  let currbufname = bufname(currbufnr)
+	  if(match(currbufname, a:pattern) > -1)
+		echo currbufnr . ": ". bufname(currbufnr)
+		let nummatches += 1
+		let firstmatchingbufnr = currbufnr
+	  endif
+	endif
+	let currbufnr = currbufnr + 1
+  endwhile
+  if(nummatches == 1)
+	execute ":buffer ". firstmatchingbufnr
+  elseif(nummatches > 1)
+	let desiredbufnr = input("Enter buffer number: ")
+	if(strlen(desiredbufnr) != 0)
+	  execute ":buffer ". desiredbufnr
+	endif
+  else
+	echo "No matching buffers"
+  endif
+endfunction
+
+"Bind the BufSel() function to a user-command
+command! -nargs=1 Bs :call BufSel("<args>")
+
+" bind to ctrl-n
+nnoremap <C-N> :Bs<space>
 " }}}
 
 " Section AutoGroups {{{
@@ -230,4 +272,15 @@ augroup configgroup
 augroup END
 
 " }}}
+
+
+" Plugins
+" Nerd Tree
+let NERDTreeShowHidden=1 " show hidden files
+map <silent> <C-\> :NERDTreeToggle<CR> " toggle
+nmap <silent> <leader>f :NERDTreeFind<cr> " show current fild in tree
+
+" fzf
+nmap <silent> <leader>t :FZF<cr>
+
 

@@ -1,4 +1,3 @@
-
 export ZSH=$HOME/.dotfiles/zsh
 
 ZSH_THEME="spaceship"
@@ -10,24 +9,30 @@ source $ZSH/oh-my-zsh.sh
 source $ZSH/config/fix.sh
 source /usr/local/etc/profile.d/z.sh
 
-alias newdot='cd ~/Documents/.dotfiles'
-alias olddot='cd ~/.dotfiles'
+alias dotfiles='cd ~/.dotfiles'
 alias ws='cd ~/workspace'
 alias jarvis='ssh jarvis@192.168.1.10 -i /Users/ryan/workspace/ssh_keys/jarvis/jarvis'
 alias proxy='export http_proxy=http://192.168.1.10:8123; export https_proxy=http://192.168.1.10:8123; ' 
 alias refresh='.. && -'
-alias nascode='cd /Volumes/nas/code/'
-alias essays='cd /Users/Ryan/workspace/University/Essays'
 alias c='clear'
-alias loadnvm=". /Users/Ryan/.nvm/nvm.sh"
+alias vims="vim -S"
 
-# alias tmux="TERM=screen-256color-bce tmux"
+# filtered fzf
+fzfiltered() {
+	find . build -not \( -path Library -prune \) -not \( -path System -prune \) -not \( -path Movie -prune \) -not \( -path Documents -prune \) -not \( -path Pictures -prune \)  -not \( -name 'node_modules' -prune \)  -not \( -name 'Applications'  -prune \) -not \( -name 'plugged' -prune \)  -maxdepth 5 -type f | fzf
+}
 
-#For One Dark
-export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
+# filtered vim
+vimf(){
+	local  result=$(fzfiltered)
+	if [[ "$result" ]]; then
+		vim $result
+	fi
+}
 
-eval "$(rbenv init -)"
+# alias loadnvm=". /Users/Ryan/.nvm/nvm.sh"
+
+# eval "$(rbenv init -)"
 
 #export NVM_DIR="/Users/Ryan/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

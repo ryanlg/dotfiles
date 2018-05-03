@@ -3,7 +3,7 @@
 # colors
 textColor=colour251 # greyish white
 defaultStatus=colour235 
-separator=colour8  # grey
+separator=colour12  # grey
 secondaryBack=colour237  # #86C1B9
 thirdBack=colour241  # #86C1B9
 lightgreen=colour10  # #7CAFC2
@@ -27,11 +27,11 @@ set -g window-status-format " #I #W "
 # active window title colors
 set-window-option -g window-status-current-fg $lightblue
 set-window-option -g window-status-current-bg $thirdBack
-set-window-option -g  window-status-current-format "    #[bold]#W    "
+set-window-option -g  window-status-current-format "    #I #[bold]#W    "
 
 # pane border colors
-set-window-option -g pane-border-fg $separator
-set-window-option -g pane-active-border-fg $secondaryBack
+set-window-option -g pane-border-fg $secondaryBack
+set-window-option -g pane-active-border-fg $separator
 
 # message text
 set-option -g message-bg $textColor
