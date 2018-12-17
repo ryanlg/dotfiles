@@ -7,6 +7,9 @@ set -g default-terminal "xterm-256color"
 #  enable terminal compability
 set-option -ga terminal-overrides ",*256*:Tc"
 
+# enable focus events for vim
+set -g focus-events on
+
 set -g history-limit 20000
 
 # automatically renumber tmux windows
@@ -57,6 +60,7 @@ set-option -g set-titles-string "#T - #W"
 bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
 
 # split window and fix path for tmux 1.9
+bind c new-window -c '#{pane_current_path}'
 bind | split-window -h -c "#{pane_current_path}"
 bind - split-window -v -c "#{pane_current_path}"
 
@@ -100,10 +104,16 @@ bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-
 #################
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
 
 ### Plugin specifics ###
 # resurrect
 set -g @resurrect-strategy-nvim 'session' # restore nvim sessions
+
+# continuum
+set -g @continuum-restore 'on'
+set -g @continuum-boot 'on'
+set -g @continuum-boot-options 'iterm,fullscreen'
 
 ##############################
 ### Color & Style Settings ###

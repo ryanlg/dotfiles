@@ -463,6 +463,13 @@ spaceship_return_status() {
   echo -n "%{$reset_color%}"
 }
 
+spaceship_virtualenv_status() {
+    [[ -n ${VIRTUAL_ENV} ]] || return
+    [[ -n *.py(#qN) ]] || return
+    echo -n " %Bunder %{$fg[magenta]%}${VIRTUAL_ENV:t}%b"
+    echo -n "%{$reset_color%}"
+}
+
 # Entry point
 # Compose whole prompt from smaller parts
 spaceship_prompt() {
@@ -488,6 +495,7 @@ spaceship_prompt() {
   spaceship_docker_version
   spaceship_venv_status
   spaceship_pyenv_status
+  spaceship_virtualenv_status
   # Should it write prompt in two lines or not?
   # Write a space before, if it's written in single line
   [[ $SPACESHIP_PROMPT_SEPARATE_LINE == true ]] && echo -n "$NEWLINE" || echo -n ' '

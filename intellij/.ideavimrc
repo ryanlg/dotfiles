@@ -1,4 +1,41 @@
 :map J 6j
 :map K 3k
 
+" moving up and down work as you would expect
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+nnoremap <silent> ^ g^
+nnoremap <silent> $ g$
+
 set showmode
+
+set history=1000            " change history to 1000
+
+set hlsearch                " highlight search results
+
+set smartcase               " case-sensitive if expresson contains a capital letter
+
+nnoremap <space> <esc> :noh<cr><esc>
+
+
+" Textmate style indentation
+" () because I switched my ( key with [
+vmap <leader>( <gv
+vmap <leader>) >gv
+nmap <leader>( <<
+nmap <leader>) >>
+
+" switch between current and last buffer
+nmap <leader>. <c-^>
+
+" enable . command in visual mode
+vnoremap . :normal .<cr>
+
+" better panel nav
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-H> <C-W>h
+map <C-L> <C-W>l
+
+" close panel
+nnoremap <C-W>c <C-W>x

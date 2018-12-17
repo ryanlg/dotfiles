@@ -6,10 +6,14 @@ abbr teh the
 abbr tempalte template
 abbr fitler filter
 
+set tags=tags
+
+" let g:plug_url_format='git@Ryanget:%s.git'
 source ~/.config/nvim/plugins.vim " Plugin manager
 
 set nocompatible            " not compatible with vi
 set autoread                " detect when a file is changed
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif " auto read after focus regain
 set autowrite               " save on switching buffer
 
 set history=1000            " change history to 1000
@@ -17,6 +21,7 @@ set textwidth=120
 
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
 
 " }}}
 
@@ -80,6 +85,7 @@ set wrapmargin=8            " wrap lines when coming within n characters from si
 set linebreak               " set soft wrapping
 set showbreak=…             " show ellipsis at breaking
 
+filetype indent on
 set autoindent              " automatically set indent of new line
 set smartindent
 
@@ -95,12 +101,13 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 set backspace=indent,eol,start
 
 " Tab control
-set smarttab                " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+" set smarttab                " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
 set tabstop=4               " the visible width of tabs
 set softtabstop=4           " edit as if the tabs are 4 characters wide
 set shiftwidth=4            " number of spaces to use for indent and unindent
 set shiftround              " round indent to a multiple of 'shiftwidth'
 set completeopt+=longest
+set expandtab
 
 " code folding settings
 set foldmethod=syntax       " fold based on indent
@@ -184,6 +191,13 @@ vmap <leader>) >gv
 nmap <leader>( <<
 nmap <leader>) >>
 
+" Resizing splits
+
+call submode#enter_with('grow/shrink', 'n', '', '<C-w>=', ':vertical resize +5<cr>')
+call submode#enter_with('grow/shrink', 'n', '', '<C-w>-', ':vertical resize -5<cr>')
+call submode#map('grow/shrink', 'n', '', '=', ':vertical resize +5<cr>')
+call submode#map('grow/shrink', 'n', '', '-', ':vertical resize -5<cr>')
+
 " switch between current and last buffer
 nmap <leader>. <c-^>
 
@@ -191,8 +205,8 @@ nmap <leader>. <c-^>
 vnoremap . :normal .<cr>
 
 " better panel nav
-map <C-J> <C-W>j<C-W>_
-map <C-K> <C-W>k<C-W>_
+map <C-J> <C-W>j
+map <C-K> <C-W>k
 map <C-H> <C-W>h
 map <C-L> <C-W>l
 
@@ -217,7 +231,9 @@ nnoremap <leader>\ "fyiw :/<c-r>f<cr>
 nmap <leader>w :setf textile<cr> :Goyo<cr>
 
 " list buffer and :buffer 
-nnoremap <C-B> :buffers<CR>:buffer<Space>
+"nnoremap <C-B> :buffers<CR>:buffer<Space>
+nnoremap <C-B> ::CtrlPBuffer<CR>
+nnoremap <C-S> :buffers<CR>:sb<Space>
 
 " search for a buffer with file name and jump to it
 function! BufSel(pattern)
@@ -252,7 +268,8 @@ endfunction
 command! -nargs=1 Bs :call BufSel("<args>")
 
 " bind to ctrl-n
-nnoremap <C-N> :Bs<space>
+"nnoremap <C-N> :Bs<space>
+nnoremap <C-N> :CtrlP<CR>
 " }}}
 
 " Section AutoGroups {{{
@@ -277,10 +294,31 @@ augroup END
 " Plugins
 " Nerd Tree
 let NERDTreeShowHidden=1 " show hidden files
+let NERDTreeIgnore = ['\.DS_Store$', '__pycache__$', 'node_modules$']
 map <silent> <C-\> :NERDTreeToggle<CR> " toggle
 nmap <silent> <leader>f :NERDTreeFind<cr> " show current fild in tree
 
 " fzf
 nmap <silent> <leader>t :FZF<cr>
 
+" YCM
+let g:loaded_youcompleteme = 1 " Set to 1 to disabel YCM
+let g:ycm_python_binary_path = '/Users/ryan/.pyenv/shims/python'
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
 
+let g:cpp_class_scope_highlight = 1
+let g:cpp_concepts_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+
+" ALE
+let g:ale_linters = {
+\   'python': ['flake8'],
+\   'text': ['proselint'],
+\}
+
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_save = 1
