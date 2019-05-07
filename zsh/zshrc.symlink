@@ -57,3 +57,5 @@ pyenv virtualenvwrapper_lazy
 # cd to ~
 # Keep this at the end
 # cd ~
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -28,7 +28,7 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " Section User Interface {{{
 "
-" Use 24-bit (true-color) mode 
+" Use 24-bit (true-color) mode
 set termguicolors
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
@@ -51,12 +51,12 @@ let g:airline_powerline_fonts=1
 let g:airline_theme='one'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
-let g:airline#extensions#tabline#tab_min_count = 2 " only show tabline if tabs are being used (more than 1 tab open)
-let g:airline#extensions#tabline#show_buffers = 1 " show open buffers in tabline
+" let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
+" let g:airline#extensions#tabline#tab_min_count = 2 " only show tabline if tabs are being used (more than 1 tab open)
+" let g:airline#extensions#tabline#show_buffers = 1 " show open buffers in tabline
 " let g:airline#extensions#tabline#show_splits = 1
 
-let g:airline#extensions#bufferline#enabled = 1
+" let g:airline#extensions#bufferline#enabled = 1
 
 "airline symbols
 let g:airline_left_sep = ''
@@ -115,7 +115,7 @@ set foldnestmax=10          " deepest fold is 10 levels
 set nofoldenable            " don't fold by default
 set foldlevel=1
 
-set clipboard=unnamed
+" set clipboard=unnamed
 
 set ttyfast                 " faster redrawing
 set diffopt+=vertical
@@ -175,28 +175,28 @@ nnoremap <space> <esc> :noh<cr><esc>
 " activate spell-checking alternatives
 nmap ;s :set invspell spelllang=en<cr>
 
-" markdown to html
-nmap <leader>md :%!markdown --html4tags <cr>
-
-" remove extra whitespace
-nmap <leader><space> :%s/\s\+$<cr>
 
 " show white space
 nmap <leader>l :set list!<cr>
 
 " Textmate style indentation
 " () because I switched my ( key with [
-vmap <leader>( <gv
-vmap <leader>) >gv
-nmap <leader>( <<
-nmap <leader>) >>
+vmap <Tab><Tab> >gv
+vmap <S-Tab> <gv
+nmap <Tab><Tab> >>
+nmap <S-Tab> <<
 
 " Resizing splits
 
 call submode#enter_with('grow/shrink', 'n', '', '<C-w>=', ':vertical resize +5<cr>')
-call submode#enter_with('grow/shrink', 'n', '', '<C-w>-', ':vertical resize -5<cr>')
+call submode#enter_with('grow/shrink', 'n', '', '<C-w>_', ':vertical resize -5<cr>')
 call submode#map('grow/shrink', 'n', '', '=', ':vertical resize +5<cr>')
-call submode#map('grow/shrink', 'n', '', '-', ':vertical resize -5<cr>')
+call submode#map('grow/shrink', 'n', '', '_', ':vertical resize -5<cr>')
+
+" Auto closing braces on newline
+inoremap {<CR> {<CR>}<Esc>ko
+inoremap [<CR> [<CR>]<Esc>ko
+inoremap (<CR> (<CR>)<Esc>ko
 
 " switch between current and last buffer
 nmap <leader>. <c-^>
@@ -216,6 +216,10 @@ vmap <S-J> 6j
 nmap <S-K> 3k
 vmap <S-K> 3k
 
+" Since we use S-J for nav, we need something else for line join
+nmap <leader>j :join<cr>
+nmap <leader>J :join!<cr>
+
 " toggle cursor line
 nnoremap <leader>i :set cursorline!<cr>
 
@@ -228,64 +232,24 @@ nnoremap <silent> $ g$
 " search for word under the cursor
 nnoremap <leader>\ "fyiw :/<c-r>f<cr>
 
-nmap <leader>w :setf textile<cr> :Goyo<cr>
+" quicker save
+nnoremap <C-S> :w<cr>
+nnoremap <C-Q> :wq<cr>
 
-" list buffer and :buffer 
-"nnoremap <C-B> :buffers<CR>:buffer<Space>
-nnoremap <C-B> ::CtrlPBuffer<CR>
-nnoremap <C-S> :buffers<CR>:sb<Space>
-
-" search for a buffer with file name and jump to it
-function! BufSel(pattern)
-  let bufcount = bufnr("$")
-  let currbufnr = 1
-  let nummatches = 0
-  let firstmatchingbufnr = 0
-  while currbufnr <= bufcount
-	if(bufexists(currbufnr))
-	  let currbufname = bufname(currbufnr)
-	  if(match(currbufname, a:pattern) > -1)
-		echo currbufnr . ": ". bufname(currbufnr)
-		let nummatches += 1
-		let firstmatchingbufnr = currbufnr
-	  endif
-	endif
-	let currbufnr = currbufnr + 1
-  endwhile
-  if(nummatches == 1)
-	execute ":buffer ". firstmatchingbufnr
-  elseif(nummatches > 1)
-	let desiredbufnr = input("Enter buffer number: ")
-	if(strlen(desiredbufnr) != 0)
-	  execute ":buffer ". desiredbufnr
-	endif
-  else
-	echo "No matching buffers"
-  endif
-endfunction
-
-"Bind the BufSel() function to a user-command
-command! -nargs=1 Bs :call BufSel("<args>")
-
-" bind to ctrl-n
-"nnoremap <C-N> :Bs<space>
-nnoremap <C-N> :CtrlP<CR>
-" }}}
-
-" Section AutoGroups {{{
+" Section Autogroups {{{
 " file type specific settings
 augroup configgroup
     autocmd!
 
     " automatically resize panes on resize
-    autocmd VimResized * exe 'normal! \<c-w>='
+    autocmd vimresized * exe 'normal! \<c-w>='
 
 	" auto source
-    autocmd BufWritePost .vimrc,.vimrc.local,init.vim source %
-    autocmd BufWritePost .vimrc.local source %
+    autocmd bufwritepost .vimrc,.vimrc.local,init.vim source %
+    autocmd bufwritepost .vimrc.local source %
 
     " save all files on focus lost, ignoring warnings about untitled buffers
-    autocmd FocusLost * silent! wa
+    autocmd focuslost * silent! wa
 augroup END
 
 " }}}
@@ -299,7 +263,10 @@ map <silent> <C-\> :NERDTreeToggle<CR> " toggle
 nmap <silent> <leader>f :NERDTreeFind<cr> " show current fild in tree
 
 " fzf
-nmap <silent> <leader>t :FZF<cr>
+nmap <silent> <C-p> :FZF<cr>
+
+" Ag
+nmap <silent> <C-f> :Ag<cr>
 
 " YCM
 let g:loaded_youcompleteme = 1 " Set to 1 to disabel YCM
