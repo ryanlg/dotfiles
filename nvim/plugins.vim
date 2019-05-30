@@ -34,15 +34,10 @@ Plug 'junegunn/fzf.vim'
 
 " =============== Javascript ==============
 Plug 'pangloss/vim-javascript' " JS syntax
-" Plug 'nikvdp/ejs-syntax' " .ejs syntax
 
 " =============== Python ================
-" Plug 'python-mode/python-mode', { 'branch': 'develop' }
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'vim-python/python-syntax'
-
-" ================ Wechat ==============
-" Plug 'chemzqm/wxapp.vim'
 
 
 " Initialize plugin system

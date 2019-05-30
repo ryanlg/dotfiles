@@ -17,7 +17,6 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 set autowrite               " save on switching buffer
 
 set history=1000            " change history to 1000
-set textwidth=120
 
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -234,7 +233,7 @@ nnoremap <leader>\ "fyiw :/<c-r>f<cr>
 
 " quicker save
 nnoremap <C-S> :w<cr>
-nnoremap <C-Q> :wq<cr>
+nnoremap <C-Q> :q<cr>
 
 " Section Autogroups {{{
 " file type specific settings
@@ -268,24 +267,24 @@ nmap <silent> <C-p> :FZF<cr>
 " Ag
 nmap <silent> <C-f> :Ag<cr>
 
-" YCM
-let g:loaded_youcompleteme = 1 " Set to 1 to disabel YCM
-let g:ycm_python_binary_path = '/Users/ryan/.pyenv/shims/python'
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
+" YCM, no longer used, it's slow as hell
+" let g:loaded_youcompleteme = 1 " Set to 1 to disabel YCM
+" let g:ycm_python_binary_path = '/Users/ryan/.pyenv/shims/python'
+" let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_autoclose_preview_window_after_completion = 1
 
-let g:cpp_class_scope_highlight = 1
-let g:cpp_concepts_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
+" CPP syntax highlight
+" let g:cpp_class_scope_highlight = 1
+" let g:cpp_concepts_highlight = 1
+" let g:cpp_member_variable_highlight = 1
+" let g:cpp_class_decl_highlight = 1
 
-" ALE
-let g:ale_linters = {
-\   'python': ['flake8'],
-\   'text': ['proselint'],
-\}
-
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_save = 1
+" ALE, no longer used
+" let g:ale_linters = {
+" \   'python': ['flake8'],
+" \   'text': ['proselint'],
+" \}
+" let g:ale_lint_on_text_changed = 0
+" let g:ale_lint_on_enter = 1
+" let g:ale_lint_on_save = 1
