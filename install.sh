@@ -2,18 +2,18 @@
 
 echo "Installing .dotfiles"
 
-#Start linking
+# Start linking
 source install/link.sh
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-#Homebrew
-source install/brew.sh
+source install/brew.sh  # Homebrew
+source install.system.sh  # System settings
 fi
 
-#Switch to zsh
+# Switch to zsh
 chsh -s /bin/zsh
 
-#.gitignore_global
+# .gitignore_global
 git config --global core.excludesfile ~/.gitignore_global 
 
 echo "Done."

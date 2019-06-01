@@ -23,6 +23,9 @@ brew install diff-so-fancy
 brew install zsh-syntax-highlighting
 brew install neovim/neovim/neovim
 brew install python3
+brew install skhd
+brew install koekeishiya/formulae/skhd; brew services start skhd
+brew tap koekeishiya/formulae; brew install chunkwm; brew services start chunkwm
 echo "=============================="
 
 exit 0
