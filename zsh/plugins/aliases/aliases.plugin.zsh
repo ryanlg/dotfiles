@@ -1,6 +1,5 @@
 # reload zsh config
-alias vim="nvim"
-export EDITOR="nvim"
+export EDITOR="vim"
 
 # some random things
 alias h='history'

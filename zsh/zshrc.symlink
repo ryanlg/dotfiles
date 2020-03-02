@@ -1,29 +1,25 @@
 export ZSH=$HOME/.dotfiles/zsh
 
+PATH=~/.local/bin:$PATH
+LD_LIBRARY_PATH=~/.local/lib
+
 ZSH_THEME="spaceship"
 #DEFAULT_USER=Ryan
 
-plugins=(git aliases osx tmux zsh-autosuggestions docker zsh-syntax-highlighting virtualenv)
+plugins=(git aliases tmux zsh-syntax-highlighting z)
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/config/fix.sh
-source /usr/local/etc/profile.d/z.sh
 
-alias dotfiles='cd ~/.dotfiles'
-alias ws='cd ~/workspace'
-alias jarvis='ssh jarvis@192.168.1.10 -i /Users/ryan/workspace/ssh_keys/jarvis/jarvis'
-alias proxy='http_proxy=http://192.168.1.10:8123 https_proxy=http://192.168.1.10:8123 ' 
-alias localproxy='http_proxy=http://127.0.0.1:8123 https_proxy=http://127.0.0.1:8123 ' 
+alias vim='~/private/dotfiles/nvim.appimage'
+
 alias refresh='.. && -'
 alias c='clear'
-alias vims="vim -S"
-alias ctags="`brew --prefix`/bin/ctags"
 alias sha1='openssl sha1 '
 
-# CS Department Remote Machine
-alias rlmount='sshfs rliang@best-linux.cs.wisc.edu:/u/r/l/rliang/private ~/workspace/mnt/rliang/private'
-alias rlprivate='cd ~/workspace/mnt/rliang/private'
-alias cpprivate='echo "/Users/ryan/workspace/mnt/rliang/private" | pbcopy'
+alias ticket='kinit && aklog'
+
+alias e='cd ~/private/cs354'
 
 # filtered fzf
 fzfiltered() {
