@@ -46,7 +46,7 @@ set background=dark
 " set guifont=Menlo\ for\ Powerline\ 20
 
 " airline options
-let g:airline_powerline_fonts=1
+" let g:airline_powerline_fonts=1
 let g:airline_theme='one'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
@@ -58,10 +58,10 @@ let g:airline_right_sep=''
 " let g:airline#extensions#bufferline#enabled = 1
 
 "airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
@@ -266,6 +266,9 @@ nmap <silent> <C-p> :FZF<cr>
 
 " Ag
 nmap <silent> <C-f> :Ag<cr>
+
+" NASM
+let g:asmsyntax = 'nasm'
 
 " YCM, no longer used, it's slow as hell
 " let g:loaded_youcompleteme = 1 " Set to 1 to disabel YCM

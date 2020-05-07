@@ -3,7 +3,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " =========== Theme ===========
 " Plug 'joshdick/onedark.vim'
-Plug 'rakr/vim-one'
+Plug 'ryanlg/vim-one'
 Plug 'vim-airline/vim-airline' " fancy statusline
 
 " =========== General ===========
@@ -38,6 +38,15 @@ Plug 'pangloss/vim-javascript' " JS syntax
 " =============== Python ================
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'vim-python/python-syntax'
+
+" ============= Terraform ===============
+Plug 'hashivim/vim-terraform'
+
+" ============= NASM =============
+Plug '~/.config/nvim/plugged/nasm'
+
+" ============ Rust ============
+Plug 'rust-lang/rust.vim'
 
 
 " Initialize plugin system
