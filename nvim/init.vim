@@ -28,7 +28,9 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " Section User Interface {{{
 "
 " Use 24-bit (true-color) mode
+ 
 set termguicolors
+
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " switch cursor to line when in insert mode, and block when not
@@ -114,7 +116,7 @@ set foldnestmax=10          " deepest fold is 10 levels
 set nofoldenable            " don't fold by default
 set foldlevel=1
 
-" set clipboard=unnamed
+set clipboard=unnamed
 
 set ttyfast                 " faster redrawing
 set diffopt+=vertical
