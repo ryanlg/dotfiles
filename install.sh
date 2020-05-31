@@ -6,8 +6,8 @@ echo "Installing .dotfiles"
 source install/link.sh
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-source install/brew.sh  # Homebrew
-source install.system.sh  # System settings
+    source install/brew.sh  # Homebrew
+    source install.system.sh  # System settings
 fi
 
 # Switch to zsh

@@ -1,10 +1,6 @@
 " Specify a directory for plugins
 call plug#begin('~/.config/nvim/plugged')
 
-" =========== Theme ===========
-" Plug 'joshdick/onedark.vim'
-Plug 'ryanlg/vim-one'
-Plug 'vim-airline/vim-airline' " fancy statusline
 
 " =========== General ===========
 " Plug 'Shougo/echodoc.vim' " Displays function signatures from completions in the command line.
@@ -43,10 +39,15 @@ Plug 'vim-python/python-syntax'
 Plug 'hashivim/vim-terraform'
 
 " ============= NASM =============
-Plug '~/.config/nvim/plugged/nasm'
+" Plug '~/.config/nvim/plugged/nasm'
 
-" ============ Rust ============
+" ============= Rust =============
 Plug 'rust-lang/rust.vim'
+
+" =========== Theme ===========
+" Plug 'joshdick/onedark.vim'
+Plug 'ryanlg/vim-one'
+Plug 'vim-airline/vim-airline' " fancy statusline
 
 
 " Initialize plugin system
