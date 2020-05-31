@@ -10,7 +10,7 @@ plugins=(git aliases osx tmux zsh-autosuggestions docker zsh-syntax-highlighting
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/config/fix.sh
-source /usr/local/etc/profile.d/z.sh
+source /usr/share/z/z.sh
 
 alias ws='cd ~/workspace'
 alias refresh='.. && -'
