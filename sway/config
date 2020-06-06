@@ -24,7 +24,7 @@ set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu bemenu-run --fn $uifont -b -p "▶" --tf "$prompt" --hf "$highlight" --sf "$highlight" --scf "$highlight" | xargs swaymsg exec --
+set $menu bemenu-run -b -p "Run: " --tf "$prompt" -H 20 --hf "$highlight" --sf "$highlight" --scf "$highlight" | xargs swaymsg exec --
 
 ### Output configuration
 #
