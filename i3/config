@@ -203,7 +203,7 @@ bar {
     font pango:Melno Nerd Font 11
 
     colors {
-        background #272c33
+        background #1c1c1c
     }
 }
 
