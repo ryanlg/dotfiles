@@ -38,7 +38,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set laststatus=2
 
 syntax on
-colorscheme one        " Set the colorscheme
+colorscheme lights-off        " Set the colorscheme
 set background=dark
 " let g:lightline = {
 "       \ 'colorscheme': 'one',
@@ -47,7 +47,7 @@ set background=dark
 
 " airline options
 " let g:airline_powerline_fonts=1
-let g:airline_theme='one'
+let g:airline_theme='minimalist'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 " let g:airline#extensions#tabline#enabled = 1 " enable airline tabline

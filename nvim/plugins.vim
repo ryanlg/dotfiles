@@ -46,8 +46,10 @@ Plug 'rust-lang/rust.vim'
 
 " =========== Theme ===========
 " Plug 'joshdick/onedark.vim'
-Plug 'ryanlg/vim-one'
+Plug 'ryanlg/lights-off'
+
 Plug 'vim-airline/vim-airline' " fancy statusline
+Plug 'vim-airline/vim-airline-themes'
 
 
 " Initialize plugin system
