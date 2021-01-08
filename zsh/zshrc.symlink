@@ -1,0 +1,97 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.dotfiles/zsh/ohmyzsh
+
+# Theme
+ZSH_THEME="spaceship"
+
+# Disable auto-update
+DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Change the custom folder location so it's not in the submodule
+ZSH_CUSTOM=$HOME/.dotfiles/zsh/custom
+
+# Plugins
+plugins=(git osx tmux docker virtualenv)
+
+source $ZSH/oh-my-zsh.sh
+
+######################
+# User configuration
+######################
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# Set editor
+export EDITOR='nvim'
+
+# Aliases
+alias ws='cd ~/workspace'
+alias re='.. && -'
+alias c='clear'
+alias sha1='openssl sha1 '
+
+# CS Department Remote Machine
+alias rlmount='sshfs rliang@best-linux.cs.wisc.edu:/u/r/l/rliang/private ~/workspace/mnt/rliang/private'
+alias rlumount='umount ~/workspace/mnt/rliang/private'
+alias rlprivate='cd ~/workspace/mnt/rliang/private'
+alias cpprivate='echo "/Users/ryan/workspace/mnt/rliang/private" | pbcopy'
+
+# filtered fzf
+fzfiltered() {
+	find . build -not \( -path Library -prune \) \
+                 -not \( -path System -prune \)  \
+                 -not \( -path Movie -prune \)   \
+                 -not \( -path Documents -prune \)  \
+                 -not \( -path Pictures -prune \)   \
+                 -not \( -name 'node_modules' -prune \)  \
+                 -not \( -name 'Applications'  -prune \)  \
+                 -not \( -name 'plugged' -prune \)  \
+                 -maxdepth 5 -type f | fzf
+}
+
+# filtered vim
+vimf(){
+	local  result=$(fzfiltered)
+	if [[ "$result" ]]; then
+		vim $result
+	fi
+}
+
+loadnvm(){
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+    [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+}
+
+# eval "$(rbenv init -)"
+
+# Load pyenv
+#eval "$(pyenv init -)"
+
+# virtualenvwrapper
+# export WORKON_HOME=$HOME/.virtualenvs
+# export PROJECT_HOME=$HOME/workspace/
+# pyenv virtualenvwrapper_lazy
+# source /Users/ryan/.pyenv/shims/virtualenvwrapper.sh
+
+# github.com/jiansoung/issues-list/issues/13
+## For compilers to find zlib you may need to set:
+# export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib"
+# export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
+
+# # For pkg-config to find zlib you may need to set:
+# export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

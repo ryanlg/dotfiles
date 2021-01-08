@@ -1,0 +1,1 @@
+/Users/ryan/.dotfiles/zsh/spaceship/spaceship.zsh
