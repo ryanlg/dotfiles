@@ -3,13 +3,13 @@
 # zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.dotfiles/zsh/ohmyzsh
 
 # Theme
-ZSH_THEME="spaceship"
+ZSH_THEME=""  # Disable built-in themes, we are using starship
 
 # Disable auto-update
 DISABLE_AUTO_UPDATE="true"
@@ -48,9 +48,13 @@ export EDITOR='nvim'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Spaceship theme customization
-SPACESHIP_EXEC_TIME_SHOW=false   # Disable showing execution time
+# SPACESHIP_EXEC_TIME_SHOW=false   # Disable showing execution time
 
 # Some alias and commands are under $ZSH_CUSTOM
+
+# `starship` prompt
+export STARSHIP_CONFIG=~/.dotfiles/zsh/starship.toml # Change config file location
+eval "$(starship init zsh)" # Initialization
 
 # Uncomment this to enable the built-in profiler
 # This must be at the end
