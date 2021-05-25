@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Check if we have brew already
 if test ! $(which brew); then
     echo "Installing homebrew"
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -9,7 +10,6 @@ echo -e "\n\nInstalling homebrew packages..."
 echo "=============================="
 brew install ack
 brew install git
-brew install hub
 brew install fzf
 brew install z
 brew install wget
@@ -17,15 +17,9 @@ brew install curl
 brew install reattach-to-user-namespace
 brew install tmux
 brew install zsh
-brew install highlight
-brew install markdown
-brew install diff-so-fancy
-brew install zsh-syntax-highlighting
+brew install starship
 brew install neovim/neovim/neovim
 brew install python3
-brew install skhd
-brew install koekeishiya/formulae/skhd; brew services start skhd
-brew tap koekeishiya/formulae; brew install chunkwm; brew services start chunkwm
 echo "=============================="
 
 exit 0

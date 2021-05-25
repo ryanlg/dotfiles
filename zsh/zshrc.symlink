@@ -3,7 +3,7 @@
 # zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
-PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
+PATH=/usr/local/opt/llvm/bin:$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.dotfiles/zsh/ohmyzsh
@@ -43,6 +43,9 @@ source /usr/local/etc/profile.d/z.sh
 
 # Set editor
 export EDITOR='nvim'
+
+# Set the GPG tty so it doesn't complain when we commit in Git
+export GPG_TTY=$(tty)
 
 # Load fzf stuff
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
