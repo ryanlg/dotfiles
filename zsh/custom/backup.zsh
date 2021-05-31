@@ -3,61 +3,25 @@
 #
 # @author: Ryan Liang <rl@ryanl.io>
 
-# __check_*
-#
-# Check if various tools and variables needed for the backup
-# are present on the machine.
-__check_op() {
-    if ! command -v "op" &> /dev/null; then
-        echo "Error: 1Password CLI (op) cannot be found, please install the tool from https://1password.com/downloads/command-line/"
+__check_program() {
+
+    if ! command -v "$1" &> /dev/null; then
+        echo "$2"
         return 1
     fi
-
-    return 0
 }
 
-__check_gnupg() {
-    if ! command -v "gpg" &> /dev/null; then
-        echo "Error: GnuPG (gpg) cannot be found, please install the tool."
+__check_env() {
+
+    if [ -z "$1" ]; then
+        echo "$2"
         return 1
     fi
-
-    return 0
-}
-
-__check_jq() {
-    if ! command -v "jq" &> /dev/null; then
-        echo "Error: JQ (jq) cannot be found, please install the tool."
-        return 1
-    fi
-
-    return 0
-}
-
-__check_op_shorthand() {
-
-    if [ -z "$BACKUP_OP_SHORTHAND" ]; then
-        echo "Error: No 1Password account shorthand is present in the environment. Please export one to \$BACKUP_OP_SHORTHAND."
-        return 1
-    fi
-
-    return 0
-}
-
-__check_signing_key_id() {
-
-    if [ -z "$BACKUP_SIGNING_KEY_ID" ]; then
-        echo "Error: No GPG Key ID used for signing backups is present in the environment. Please export one to \$GPG_BACKUP_SIGNING_KEY_ID."
-        return 1
-    fi
-
-    return 0
 }
 
 __op_sign_in() {
 
-    local op_eval
-    local result
+    local op_eval result
 
     op_eval="$(op signin "$BACKUP_OP_SHORTHAND")"
     result=$?
@@ -72,6 +36,7 @@ __op_sign_in() {
 }
 
 __op_sign_out() {
+
     op signout
     unset "OP_SESSION_$BACKUP_OP_SHORTHAND"
 }
@@ -82,8 +47,7 @@ __op_sign_out() {
 # and with "pgp" tags present.
 __op_get_items_pgp() {
 
-    local items
-    local result
+    local items result
 
     items="$(op list items --categories Password)" # @todo: add tags
     result=$?
@@ -95,8 +59,7 @@ __op_get_items_pgp() {
 # Get the "password" field for a specific item with uuid
 __op_get_item_pass() {
 
-    local pass
-    local result
+    local pass result
 
     pass="$(op get item --fields password "$1")"
     result=$?
@@ -129,20 +92,50 @@ __jq_get_op_item_uuid() {
 }
 
 __print_usage() {
-    echo "Usage: gpgbackup <pass-name> <file>"
+    echo "Usage: ryup <pass-name> <file>"
 }
 
-# Conveniently sign and backup important files according to our backup scheme.
-gpgbackup() {
+ryup() {
 
-    [ "$1" ] || { __print_usage; return 1; }
-    [ "$2" ] || { __print_usage; return 1; }
+    SELF_VERSION="1.0.0"
 
     BACKUP_OP_ITEM_NAME_PREFIX="ryanl/pgp/"
     BACKUP_OP_ITEM_NAME_SUFFIX="/pass"
 
     BACKUP_OP_PASS_NAME_SHORT="$1"
     BACKUP_OP_ROOT_NAME_SHORT="root"
+
+    BACKUP_IN_FILENAME="$2"
+
+    [ "$1" ] || { __print_usage; return 1; }
+    [ "$2" ] || { __print_usage; return 1; }
+
+    if ! command -v "op" &> /dev/null; then
+        echo "Error: 1Password CLI (op) cannot be found, please install the tool from https://1password.com/downloads/command-line/";
+        return 2;
+    fi
+
+    if ! command -v "gpg" &> /dev/null; then
+        echo "Error: GnuPG (gpg) cannot be found, please install the tool."
+        return 2;
+    fi
+
+    if ! command -v "jq" &> /dev/null; then
+        echo "Error: JQ (jq) cannot be found, please install the tool."
+        return 2;
+    fi
+
+    if [ -z "$BACKUP_OP_SHORTHAND" ]; then
+        echo "Error: No 1Password account shorthand is present in the environment. Please export one to \$BACKUP_OP_SHORTHAND."
+        return 2;
+    fi
+
+    if [ -z "$BACKUP_SIGNING_KEY_ID" ]; then
+        echo "Error: No GPG Key ID used for signing backups is present in the environment. Please export one to \$GPG_BACKUP_SIGNING_KEY_ID."
+        return 2;
+    fi
+
+    echo "ryup ${SELF_VERSION}: a simple and secure backup tool"
 
     op_item_root_name="${BACKUP_OP_ITEM_NAME_PREFIX}${BACKUP_OP_ROOT_NAME_SHORT}${BACKUP_OP_ITEM_NAME_SUFFIX}"
     op_item_pass_name="${BACKUP_OP_ITEM_NAME_PREFIX}${BACKUP_OP_PASS_NAME_SHORT}${BACKUP_OP_ITEM_NAME_SUFFIX}"
@@ -153,56 +146,52 @@ gpgbackup() {
     current_time_filename=$(TZ=UTC+0 date -jf "%s" "$current_time_epoch" +"%Y%m%dT%H%M%S")
     current_time_metadata=$(date -jf  "%s" "$current_time_epoch" +"%Y-%m-%dT%H:%M:%S%z")
 
-    BACKUP_IN_FILENAME="$2"
     out_filename="$2-$current_time_filename"
 
-    # @todo: put echo in here, use a generic __check_program function
-    # Check if tools and environment variables are present
-    __check_op || return 1
-    __check_gnupg || return 1
-    __check_jq || return 1
-    __check_op_shorthand || return 1
-    __check_signing_key_id || return 1
+    echo "1Password CLI (op) will ask you for the Master Password:"
 
     # Gimme a session key
     __op_sign_in || return 2
 
     local result pgp_items root_uuid root_pass pass_uuid pass_key
-
     result=1
 
     # All items in OP related to PGP
-    pgp_items=$(__op_get_items_pgp)
-    result=$?
-    [ $result -eq 0 ] || return 2
+    echo "Getting Root and Encryption items from 1Password..."
+    if ! pgp_items=$(__op_get_items_pgp); then
+        echo "Error: Unknown error returned by 1Password when retrieving items"
+        return 2
+    fi
 
     # Get the root key passphrase
     root_uuid=$(__jq_get_op_item_uuid "$pgp_items" "$op_item_root_name")
     result=$?
-
     ! [ $result -eq 1 ] || { echo "Error: No root keys with name \"$op_item_root_name\" found in 1Password"; return 2; }
     ! [ $result -eq 2 ] || { echo "Error: Duplicate root keys with name \"$op_item_root_name\" found in 1Password"; return 3; }
-
-    root_pass=$(__op_get_item_pass "$root_uuid")
-    result=$?
-
-    [ $result -eq 0 ] || { echo "Error: Unknown error ($?) returned by 1Password when retrieving root key passphrase"; return 2; }
 
     # Get the item key passphrase
     pass_uuid=$(__jq_get_op_item_uuid "$pgp_items" "$op_item_pass_name")
     result=$?
+    ! [ $result -eq 1 ] || { echo "Error: No encryption keys with name \"$op_item_pass_name\" found in 1Password"; return 2; }
+    ! [ $result -eq 2 ] || { echo "Error: Duplicate encryption keys with name \"$op_item_pass_name\" found in 1Password"; return 3; }
 
-    ! [ $result -eq 1 ] || { echo "Error: No pass items with name \"$op_item_pass_name\" found in 1Password"; return 2; }
-    ! [ $result -eq 2 ] || { echo "Error: Duplicate pass items with name \"$op_item_pass_name\" found in 1Password"; return 3; }
+    echo "Getting Root and Encryption keys from 1Password..."
+    if ! root_pass=$(__op_get_item_pass "$root_uuid"); then
+        echo "Error: Unknown error returned by 1Password when retrieving root key passphrase"
+        return 2
+    fi
 
-    pass_key=$(__op_get_item_pass "$pass_uuid")
-    [ $result -eq 0 ] || { echo "Error: Unknown error ($?) returned by 1Password when retrieving encryption passphrase"; return 2; }
+    if ! pass_key=$(__op_get_item_pass "$pass_uuid"); then
+        echo "Error: Unknown error returned by 1Password when retrieving encryption passphrase"
+        return 2
+    fi
 
     # Revoke the session key ASAP
     __op_sign_out || return 3
 
     # Perform the backup through GnuPG
     # See File Header for why we are not using `--sign --symmetric`
+    echo "Signing the document..."
     if ! \
         printf "%s" "$root_pass" | \
             gpg --sign \
@@ -211,11 +200,12 @@ gpgbackup() {
                 --batch \
                 --passphrase-fd 0 \
                 --pinentry-mode loopback \
-                "${BACKUP_IN_FILENAME}"
+                "${BACKUP_IN_FILENAME}";
     then
         return 4;
     fi
 
+    echo "Encrypting the signed document..."
     if ! \
         printf "%s" "$pass_key" | \
             gpg --symmetric \
@@ -229,12 +219,13 @@ gpgbackup() {
         return 4;
     fi
 
+    echo "Generating a detached signature for the signed document..."
     if ! \
         gpg --detach-sign \
             --local-user "${BACKUP_SIGNING_KEY_ID}!" \
             --output "${out_filename}.enc.sig" \
             --batch \
-            "${out_filename}.enc"
+            "${out_filename}.enc";
     then
         return 4;
     fi
@@ -271,19 +262,22 @@ gpgbackup() {
 	
 	EOF
 
+    echo "Signing the metadata..."
     if ! \
         gpg --clearsign \
             --local-user "${BACKUP_SIGNING_KEY_ID}!" \
             --output "${out_filename}.metadata.json" \
-            "${out_filename}.metadata.json.unsigned"
+            "${out_filename}.metadata.json.unsigned";
     then
         return 4;
     fi
 
     # @documentation
-    gpg-connect-agent "reloadagent" "/bye"
+    gpg-connect-agent "reloadagent" "/bye" &> /dev/null
 
     rm "${out_filename}.metadata.json.unsigned"
+
+    echo "Done, names of related files start with ${out_filename}.*, exiting..."
 
     return 0
 }
