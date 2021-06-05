@@ -12,5 +12,8 @@ xset m 1/1 0
 vmware-user-suid-wrapper --no-startup-id
 vmware-user
 
+# Restart vmtoolsd to ensure Auto Resize works
+# systemctl restart vmtoolsd.service
+
 # Now start i3
 i3

@@ -9,3 +9,7 @@ alias rlmount='sshfs rliang@best-linux.cs.wisc.edu:/u/r/l/rliang/private ~/works
 alias rlumount='umount ~/workspace/mnt/rliang/private'
 alias rlprivate='cd ~/workspace/mnt/rliang/private'
 alias cpprivate='echo "/Users/ryan/workspace/mnt/rliang/private" | pbcopy'
+
+# arch-vm specific
+# Restart vmtoolsd
+alias rtvtsd="sudo systemctl restart vmtoolsd.service"
