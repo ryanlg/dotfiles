@@ -24,6 +24,9 @@ Plug 'kana/vim-submode' " for sticky modifier keys, e.g. resizing window without
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+" Centering text
+Plug 'junegunn/goyo.vim'
+
 " ============== Language General =========
 " Plug 'Valloric/YouCompleteMe' " YCM
 " Plug 'w0rp/ale' "Asynchronous Lint Engine

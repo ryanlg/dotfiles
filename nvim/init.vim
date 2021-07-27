@@ -291,3 +291,15 @@ let g:asmsyntax = 'nasm'
 " let g:ale_lint_on_text_changed = 0
 " let g:ale_lint_on_enter = 1
 " let g:ale_lint_on_save = 1
+
+" Goyo
+function! s:goyo_enter()
+  set scrolloff=999
+endfunction
+
+function! s:goyo_leave()
+  set scrolloff=5
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
