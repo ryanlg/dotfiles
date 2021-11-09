@@ -103,17 +103,17 @@ bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-
 ###  Plugins  ###
 #################
 set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
+ set -g @plugin 'tmux-plugins/tmux-continuum'
 
 ### Plugin specifics ###
 # resurrect
-set -g @resurrect-strategy-nvim 'session' # restore nvim sessions
+# set -g @resurrect-strategy-nvim 'session' # restore nvim sessions
 
 # continuum
 set -g @continuum-restore 'on'
-set -g @continuum-boot 'on'
-set -g @continuum-boot-options 'iterm,fullscreen'
+# set -g @continuum-boot 'on'
 
 ##############################
 ### Color & Style Settings ###
