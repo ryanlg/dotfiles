@@ -2,8 +2,14 @@
 # This must be at the top
 # zmodload zsh/zprof
 
-# If you come from bash you might have to change your $PATH.
-PATH=/usr/local/opt/openssl@3/bin:/usr/local/opt/openjdk@8/bin:/usr/local/opt/llvm/bin:$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH
+# Force to use OpenSSL 3 instead of the one shipped with macOS
+PATH=/usr/local/opt/openssl@3/bin:$PATH
+# Binaries installed through Cargo
+PATH=$HOME/.cargo/bin:$PATH
+# Use LLVM installed through Brew instead of the one shipped with macOS
+PATH=/usr/local/opt/llvm/bin:$PATH
+# Prioritize binaries installed with Brew
+PATH=/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.dotfiles/zsh/ohmyzsh
@@ -36,10 +42,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Enable z
 source /usr/local/etc/profile.d/z.sh
-
-######################
-# User configuration
-######################
 
 # Set editor
 export EDITOR='nvim'
