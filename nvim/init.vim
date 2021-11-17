@@ -232,8 +232,12 @@ nnoremap <silent> $ g$
 nnoremap <leader>\ "fyiw :/<c-r>f<cr>
 
 " quicker save
-nnoremap <C-S> :w<cr>
-nnoremap <C-Q> :q<cr>
+" @deprecated: C-Q doesn't actually work on macOS - you have to press it twice
+" for VIM to quit. In order to avoid confusion with the work VM (on which this
+" short cut does work, so I'd accidentally quit twice), this functionality is
+" disabled entirely on macOS.
+" nnoremap <C-S> :w<cr>
+" nnoremap <C-Q> :q<cr>
 
 " Section Autogroups {{{
 " file type specific settings
@@ -259,7 +263,7 @@ augroup END
 let NERDTreeShowHidden=1 " show hidden files
 let NERDTreeIgnore = ['\.DS_Store$', '__pycache__$', 'node_modules$']
 map <silent> <C-\> :NERDTreeToggle<CR> " toggle
-nmap <silent> <leader>f :NERDTreeFind<cr> " show current fild in tree
+nmap <silent> <leader>f :NERDTreeFind<cr> " show current file in tree
 
 " fzf
 nmap <silent> <C-p> :FZF<cr>
@@ -303,3 +307,5 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+nmap <leader>g :Goyo<cr>
