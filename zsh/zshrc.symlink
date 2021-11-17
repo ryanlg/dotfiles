@@ -30,7 +30,7 @@ COMPLETION_WAITING_DOTS="true"
 ZSH_CUSTOM=$HOME/.dotfiles/zsh/custom
 
 # Plugins
-plugins=(git osx tmux docker virtualenv)
+plugins=(git macos tmux docker virtualenv)
 
 source $ZSH/oh-my-zsh.sh
 
