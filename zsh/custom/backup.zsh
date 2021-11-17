@@ -99,7 +99,10 @@ ryup() {
 
     SELF_VERSION="1.0.0"
 
-    BACKUP_OP_ITEM_NAME_PREFIX="ryanl/pgp/"
+    BACKUP_OP_ROOT_NAME_PREFIX="ryanl/pgp/"
+    BACKUP_OP_ROOT_NAME_SUFFIX="/pass"
+
+    BACKUP_OP_ITEM_NAME_PREFIX="ryanl/backup/ryup/"
     BACKUP_OP_ITEM_NAME_SUFFIX="/pass"
 
     BACKUP_OP_PASS_NAME_SHORT="$1"
@@ -121,7 +124,9 @@ ryup() {
     fi
 
     if ! command -v "jq" &> /dev/null; then
-        echo "Error: JQ (jq) cannot be found, please install the tool."
+        echo "Error: JQ (jq) cannot be found, please instal
+        # @todo: check if original file and target file exist before asking for password
+        # @todo: tar all final filel the tool."
         return 2;
     fi
 
@@ -137,7 +142,7 @@ ryup() {
 
     echo "ryup ${SELF_VERSION}: a simple and secure backup tool"
 
-    op_item_root_name="${BACKUP_OP_ITEM_NAME_PREFIX}${BACKUP_OP_ROOT_NAME_SHORT}${BACKUP_OP_ITEM_NAME_SUFFIX}"
+    op_item_root_name="${BACKUP_OP_ROOT_NAME_PREFIX}${BACKUP_OP_ROOT_NAME_SHORT}${BACKUP_OP_ROOT_NAME_SUFFIX}"
     op_item_pass_name="${BACKUP_OP_ITEM_NAME_PREFIX}${BACKUP_OP_PASS_NAME_SHORT}${BACKUP_OP_ITEM_NAME_SUFFIX}"
 
     # @documentation: assume `date` utility is universal
