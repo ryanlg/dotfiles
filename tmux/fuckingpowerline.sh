@@ -44,8 +44,5 @@ set-window-option -g clock-mode-colour $secondaryBack
 tm_session_name="#[default,bg=$firstBack,fg=$textColor] Session: #S "
 set -g status-left "$tm_session_name"
 
-tm_tunes="#[bg=$secondaryBack,fg=$lightgreen] ♫ #(osascript ~/.dotfiles/applescript/playing.scpt)"
-# tm_battery="#[fg=$textColor,bg=$base09] ♥ #(battery)"
 tm_date="#[default,bg=$firstBack,fg=$textColor] %R %a %b %d"
-# tm_host="#[fg=$textColor,bg=$firstBack] #h "
-set -g status-right "$tm_tunes $tm_battery $tm_date $tm_host"
+set -g status-right "$tm_date"
