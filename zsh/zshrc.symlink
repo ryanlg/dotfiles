@@ -45,8 +45,12 @@ plugins=(git macos tmux docker virtualenv pyenv)
 
 source $ZSH/oh-my-zsh.sh
 
+# @deprecated: in favor of zoxide
 # Enable z
-source /usr/local/etc/profile.d/z.sh
+# source /usr/local/etc/profile.d/z.sh
+
+# Enable Zoxide
+eval "$(zoxide init zsh)"
 
 # Set editor
 export EDITOR='nvim'
