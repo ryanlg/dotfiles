@@ -1,0 +1,12 @@
+{{/* Only present when GUI is needed on UNIX-like systems */}}
+{{- if (or (or (ne .chezmoi.os "linux") (not .platform.is_virtual)) (not .platform.needs_gui)) -}}
+
+x/*
+xinit/*
+
+{{ end -}}
+
+{{/* These files should only be present under linux work env at Dell */}}
+{{- if .platform.is_personal -}}
+
+{{- end -}}

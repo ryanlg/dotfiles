@@ -1,0 +1,5 @@
+{{- if .platform.is_virtual -}}
+    echo "Enabling vmtoolsd..."
+    sudo systemctl enable vmtoolsd.service
+    sudo systemctl start vmtoolsd.service
+{{- end -}}

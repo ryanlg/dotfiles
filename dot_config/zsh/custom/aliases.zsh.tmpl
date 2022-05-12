@@ -1,0 +1,13 @@
+alias ws='cd ~/workspace'
+alias re='.. && -'
+alias c='clear'
+alias vim='nvim'
+
+# Log in with root and not saving to known host. Used to log into random clusters.
+alias ssh!="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l root"
+
+# Log in without saving to known host, but you can customize the user. Used to log into random servers.
+alias 'ssh#'="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
+
+# Grab somthing from remote host without saving to known host
+alias scp!="scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o User=root"

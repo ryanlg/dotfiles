@@ -1,0 +1,45 @@
+{{/* Packages that are universal across Unix-like systems, no matter the location */}}
+alacritty
+aws-cli
+curl
+fzf
+git
+gitui
+gnupg
+grep
+gzip
+jq
+ldns
+make
+neovim
+nmap
+pyenv
+python
+rsync
+sed
+starship
+the_silver_searcher
+tig
+tmux
+wget
+zoxide
+zsh
+
+{{ if .platform.is_virtual -}}
+open-vm-tools
+
+{{ if .platform.needs_gui -}}
+autocutsel
+gtk2
+gtkmm
+gtkmm3
+i3-wm
+xclip
+xf86-input-vmmouse
+xf86-video-vmware
+xorg-xinit
+xorg-server
+xorg-xset
+{{- end -}}
+
+{{- end -}}

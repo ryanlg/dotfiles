@@ -1,0 +1,29 @@
+all_packages=(
+    {{- template "packages" . }}
+)
+echo "Here are all the packages that will be installed:"
+echo "${all_packages[@]}"
+
+{{- if eq .chezmoi.osRelease.id "arch" }}
+
+    echo "Installing initial packages for Arch Linux..."
+    sudo pacman -Sy --noconfirm "${all_packages[@]}"
+
+    {{- if .platform.needs_gui }}
+        echo "Installing ly..."
+        git clone https://aur.archlinux.org/ly.git /tmp/ly
+        cd /tmp/ly
+        makepkg --syncdeps --install --rmdeps --clean
+        sudo systemctl enable ly.service
+        cd -
+        rm -rf /tmp/ly
+
+        echo "Installing Emoji fonts..."
+        git clone https://aur.archlinux.org/ttf-twemoji.git /tmp/twemoji
+        cd /tmp/twemoji
+        makepkg --syncdeps --install --rmdeps --clean
+        cd -
+        rm -rf /tmp/twemoji
+    {{- end -}}
+
+{{- end -}}

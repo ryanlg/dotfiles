@@ -1,0 +1,26 @@
+[".config/zsh/ohmyzsh"]
+    type = "git-repo"
+    url = "https://github.com/ohmyzsh/ohmyzsh.git"
+    refreshPeriod = "168h"
+    [".config/zsh/ohmyzsh".clone]
+        args = ["--depth=1"]
+    [".config/zsh/ohmyzsh".pull]
+        args = ["--ff-only"]
+
+[".config/tmux/plugins/tpm"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tpm.git"
+    refreshPeriod = "168h"
+    [".config/tmux/plugins/tpm".clone]
+        args = ["--depth=1"]
+    [".config/tmux/plugins/tpm".pull]
+        args = ["--ff-only"]
+
+[".config/nvim/pack/packer/start/packer.nvim"]
+    type = "git-repo"
+    url = "https://github.com/wbthomason/packer.nvim"
+    refreshPeriod = "168h"
+    [".config/nvim/pack/packer/start/packer.nvim".clone]
+        args = ["--depth=1"]
+    [".config/nvim/pack/packer/start/packer.nvim".pull]
+        args = ["--ff-only"]

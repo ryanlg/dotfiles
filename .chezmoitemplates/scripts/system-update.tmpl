@@ -1,0 +1,4 @@
+{{- if eq .chezmoi.osRelease.id "arch" -}}
+echo "Performing preemptive system udpate..."
+sudo pacman -Syuu
+{{- end -}}

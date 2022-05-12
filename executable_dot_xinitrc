@@ -1,0 +1,25 @@
+#!/bin/sh
+# Set randr
+# xrandr --dpi 140
+
+# Set key repeat rate
+xset r rate 150 55
+
+# Set mouse acceleration
+xset m 1/1 0
+
+# Restart vmtoolsd
+vmware-user-suid-wrapper --no-startup-id
+vmware-user
+
+# Restart vmtoolsd to ensure Auto Resize works
+# @deprecated: this actually doesn't work. Use the alias `rtvtsd`
+# systemctl restart vmtoolsd.service
+
+# Start `autocutsel`, which syncs Primary and Clipboard so copy and paste
+# works across VMWare VM and host.
+autocutsel -fork &
+autocutsel -selection PRIMARY -fork &
+
+# Now start i3
+i3

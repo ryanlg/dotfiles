@@ -1,0 +1,33 @@
+{{- if .bootstrap.needs_bootstrap -}}
+
+#! /usr/bin/env bash
+
+echo "Bootstrapping new environment..."
+
+platform_description=""
+{{ if .platform.is_virtual -}}
+    platform_description+=" virtual"
+    {{ if .platform.needs_gui -}}
+        platform_description+=" with-gui"
+    {{ end -}}
+{{ end -}}
+{{ if .platform.is_personal }}
+    platform_description+=" personal"
+{{ else -}}
+    platform_description+=" work"
+{{ end -}}
+
+echo "Current environment is${platform_description}"
+
+{{ template "scripts/system-update.tmpl" . }}
+
+{{ template "scripts/install-packages.tmpl" . }}
+
+{{ template "scripts/install-certs.tmpl" . }}
+
+{{ template "scripts/config-services.tmpl" . }}
+
+echo "Switch to zsh as the default shell..."
+chsh -s /bin/zsh
+
+{{ end }}

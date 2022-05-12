@@ -1,0 +1,12 @@
+{{- $is_virtual := promptBool "Is this machine running virtually" -}}
+{{- $needs_gui := false -}} {{ if $is_virtual }} {{- $needs_gui = promptBool "Does this machine need GUI" -}} {{ end }}
+{{- $is_personal := promptBool "Is this machine used for perosnal stuff? Answer falsey for a work machine" -}}
+{{ $needs_bootstrap := promptBool "Do you want to run the bootstrap script" -}}
+
+[data.platform]
+    needs_gui = {{ $needs_gui }}
+    is_virtual = {{ $is_virtual }}
+    is_personal = {{ $is_personal }}
+
+[data.bootstrap]
+    needs_bootstrap = {{ $needs_bootstrap }}
