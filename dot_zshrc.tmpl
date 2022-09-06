@@ -49,8 +49,16 @@ export EDITOR='nvim'
 export GPG_TTY=$(tty)
 
 # Load fzf stuff
+{{ if eq .chezmoi.os "darwin" -}}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+{{- else }}
+
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
+
+{{- end }}
 
 # Spaceship theme customization
 # SPACESHIP_EXEC_TIME_SHOW=false   # Disable showing execution time

@@ -16,6 +16,21 @@
     [".config/tmux/plugins/tpm".pull]
         args = ["--ff-only"]
 
+{{/* Honestly I don't know if there's a need to separate the install location */}}
+{{/* based on the OS, but from experience only this works. */}}
+{{- if eq .chezmoi.os "darwin" -}}
+
+[".local/share/nvim/site/pack/packer/start/packer.nvim"]
+    type = "git-repo"
+    url = "https://github.com/wbthomason/packer.nvim"
+    refreshperiod = "168h"
+    [".local/share/nvim/site/pack/packer/start/packer.nvim".clone]
+        args = ["--depth=1"]
+    [".local/share/nvim/site/pack/packer/start/packer.nvim".pull]
+        args = ["--ff-only"]
+
+{{- else -}}
+
 [".config/nvim/pack/packer/start/packer.nvim"]
     type = "git-repo"
     url = "https://github.com/wbthomason/packer.nvim"
@@ -24,3 +39,5 @@
         args = ["--depth=1"]
     [".config/nvim/pack/packer/start/packer.nvim".pull]
         args = ["--ff-only"]
+
+{{- end -}}
