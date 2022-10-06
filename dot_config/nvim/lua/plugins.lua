@@ -39,7 +39,7 @@ return require("packer").startup(function()
 
     use {
         "andymass/vim-matchup",
-        config = [[require("config.matchup")]],
+        config = [[require "config.matchup"]],
     }  -- Better % match up
 
 
@@ -61,6 +61,11 @@ return require("packer").startup(function()
     -- Syntax & LSP
     use "nvim-treesitter/nvim-treesitter"
     use "neovim/nvim-lspconfig"
+    use {
+        "jose-elias-alvarez/null-ls.nvim",
+        config = [[require "config.null_ls"]],
+        requires = { "nvim-lua/plenary.nvim" },
+    }  -- Bridge common tools to LSP
     use "Vimjas/vim-python-pep8-indent"  -- Better indentation for Python
 
 
