@@ -98,7 +98,8 @@ vim.cmd "colorscheme lights-off"    -- Switch to theme
 --------- Providers ---------
 g.loaded_node_provider = 0
 g.loaded_perl_provider = 0
-g.python3_host_prog = "/home/ryan/.pyenv/shims/python3"
+g.loaded_ruby_provider = 0
+g.python3_host_prog = "/Users/ryan/.pyenv/shims/python"
 
 --------- Keybinds ---------
 map("n", "<Leader>vl", "<Cmd>set list!<CR>")     -- Toggle showing invisible characters
