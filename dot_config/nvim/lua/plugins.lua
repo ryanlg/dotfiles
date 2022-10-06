@@ -59,7 +59,11 @@ return require("packer").startup(function()
 
 
     -- Syntax & LSP
-    use "nvim-treesitter/nvim-treesitter"
+    use {
+        "nvim-treesitter/nvim-treesitter",
+        config = [[require "config.treesitter"]],
+        run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    }
     use "neovim/nvim-lspconfig"
     use {
         "jose-elias-alvarez/null-ls.nvim",
