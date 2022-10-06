@@ -7,10 +7,6 @@ local set  = vim.opt
 local g    = vim.g
 local map  = vim.keymap.set
 
--- Use Neovim's new Lua-based filetype detection
-g.do_filetype_lua = 1
-g.did_load_filetypes = 0
-
 -- Leader/local leader
 g.mapleader = [[;]]
 g.maplocalleader = [[;]]
@@ -88,7 +84,7 @@ set.mouse        = "a"               -- Enable mouse support
 set.number       = true       -- Show line number
 set.showmatch    = true       -- Show matching braces
 set.list         = true       -- Show invisible characters by default
-set.listchars    = "tab:→ ,eol:¬,trail:⋅,extends:❯,precedes:❮"  -- Show invisible charactes as
+set.listchars    = "tab:→ ,eol:¬,trail:⋅,extends:❯,precedes:❮"  -- Show invisible characters as
 set.showbreak    = "↪"        -- Show newlines as
 
 -- Visuals
