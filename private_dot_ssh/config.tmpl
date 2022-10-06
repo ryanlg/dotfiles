@@ -6,7 +6,19 @@
 Host ryangithub
     HostName github.com
     User git
-    IdentityFile ~/workspace/keys/ryanlg-github/ryanlg-github
+    IdentityFile ~/workspace/keys/ssh/ryanlg-github/ryanlg-github
+    IdentitiesOnly yes
+
+Host saltmaster
+    HostName saltmaster.bedrock.ryanl.io
+    User saltmaster
+    IdentityFile ~/workspace/code/ryhino/keys/ssh/saltmaster/saltmaster
+    IdentitiesOnly yes
+
+Host keeper
+    HostName keeper.bedrock.ryanl.io
+    User keeper
+    IdentityFile ~/workspace/code/ryhino/keys/ssh/keeper/keeper
     IdentitiesOnly yes
 
 {{- end -}}

@@ -129,3 +129,16 @@ __pycache__/*
 
 # VSCode settings
 .vscode/
+
+# Terraform
+tf.plan
+.terraform
+
+# Docker
+.env
+
+# rbenv
+.ruby-version
+
+# Vagrant
+.vagrant/*
