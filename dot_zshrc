@@ -3,7 +3,7 @@
 # zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
-PATH=$HOME/go/bin:$GO$PYENV_ROOT/shims:$PYENV_ROOT/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+PATH=$HOME/go/bin:$PYENV_ROOT/shims:$PYENV_ROOT/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.config/zsh/ohmyzsh
@@ -30,7 +30,18 @@ COMPLETION_WAITING_DOTS="true"
 ZSH_CUSTOM=$HOME/.config/zsh/custom
 
 # ZSH Plugins
-plugins=(git tmux docker virtualenv)
+plugins=(
+    ag
+    archlinux
+    docker
+    docker-compose
+    gh
+    git
+    ripgrep
+    systemd
+    tmux
+    virtualenv
+)
 
 # Initialize oh-my-zsh
 source $ZSH/oh-my-zsh.sh
