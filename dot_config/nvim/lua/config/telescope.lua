@@ -32,5 +32,5 @@ vim.keymap.set("n", "<Leader>pg", "<Cmd>Telescope git_files<CR>")
 
 vim.keymap.set("n", "<Leader>ff", "<Cmd>Telescope live_grep<CR>")
 
-vim.keymap.set("n", "<Leader>tn", "<Cmd>Telescope lsp_definitions<CR>")
-vim.keymap.set("n", "<Leader>tm", "<Cmd>Telescope lsp_references<CR>")
+vim.keymap.set("n", "<Leader>td", "<Cmd>Telescope lsp_definitions<CR>")
+vim.keymap.set("n", "<Leader>tr", "<Cmd>Telescope lsp_references<CR>")
