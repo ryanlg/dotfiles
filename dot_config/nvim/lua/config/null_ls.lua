@@ -1,5 +1,5 @@
-require("null-ls").setup({
 null_ls = require("null-ls")
+
 -- Taken from github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
 -- Below is a workaround for a conflict between `null-ls` and nvim's new
 -- handling of `formatexpr` in 0.8, which causes `gq` to be a no-op.
@@ -13,10 +13,12 @@ local function is_null_ls_formatting_enabed(bufnr)
     )
     return #generators > 0
 end
+
+null_ls.setup({
     sources = {
         -- General
-        require("null-ls").builtins.diagnostics.codespell.with{
-            -- Disable cluster within the editor itsel
+        null_ls.builtins.diagnostics.codespell.with{
+            -- Disable cluster within the editor itself
             diagnostic_config = {
                 virtual_text = false,
                 signs        = false,
@@ -25,7 +27,7 @@ end
 
         -- Python --
         -- Enable `mypy` integration
-        require("null-ls").builtins.diagnostics.mypy.with{
+        null_ls.builtins.diagnostics.mypy.with{
             -- Disable cluster within the editor itself
             diagnostic_config = {
                 virtual_text = false,
@@ -41,7 +43,7 @@ end
         },
 
         -- Enable `flake8`
-        require("null-ls").builtins.diagnostics.flake8.with{
+        null_ls.builtins.diagnostics.flake8.with{
             -- Disable cluster within the editor itself
             diagnostic_config = {
                 virtual_text = false,
@@ -49,9 +51,16 @@ end
             },
         },
 
-        -- Use `black` as the formatter
-        require("null-ls").builtins.formatting.black,
+        -- Use `yapf` as the range formatter
+        null_ls.builtins.formatting.yapf.with{
+            -- Disable global formatting for YAPF. That is up to `black`.
+            method = require("null-ls.methods").internal.RANGE_FORMATTING,
+        },
+
+        -- Use `black` as the buffer formatter
+        null_ls.builtins.formatting.black,
     },
+
     -- Taken from github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
     on_attach = function(client, bufnr)
         if client.server_capabilities.documentFormattingProvider then
