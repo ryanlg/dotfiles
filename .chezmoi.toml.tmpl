@@ -1,3 +1,10 @@
+{{- $osid := .chezmoi.os -}}
+{{- if .chezmoi.osRelease }}
+    {{- if hasKey .chezmoi.osRelease "id" -}}
+    {{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+    {{- end -}}
+{{- end -}}
+
 {{- $is_virtual := promptBool "Is this machine running virtually" -}}
 {{- $needs_gui := false -}} {{ if $is_virtual }} {{- $needs_gui = promptBool "Does this machine need GUI" -}} {{ end }}
 {{- $is_personal := promptBool "Is this machine used for perosnal stuff? Answer falsey for a work machine" -}}
@@ -10,3 +17,6 @@
 
 [data.bootstrap]
     needs_bootstrap = {{ $needs_bootstrap }}
+
+[data]
+    osid = {{ $osid | quote }}

@@ -23,7 +23,9 @@ echo "Current environment is${platform_description}"
 
 {{ template "scripts/install-packages.tmpl" . }}
 
+{{ if not .platform.is_personal }}
 {{ template "scripts/install-certs.tmpl" . }}
+{{ end }}
 
 {{ template "scripts/config-services.tmpl" . }}
 

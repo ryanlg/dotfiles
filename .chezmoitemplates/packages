@@ -1,6 +1,5 @@
 {{/* Packages that are universal across Unix-like systems, no matter the location */}}
 alacritty
-aws-cli
 curl
 fzf
 git
@@ -9,6 +8,7 @@ gnupg
 grep
 gzip
 jq
+just
 ldns
 make
 neovim
@@ -16,7 +16,6 @@ nmap
 pyenv
 python
 rsync
-sed
 starship
 the_silver_searcher
 tig

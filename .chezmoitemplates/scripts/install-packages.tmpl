@@ -4,7 +4,7 @@ all_packages=(
 echo "Here are all the packages that will be installed:"
 echo "${all_packages[@]}"
 
-{{- if eq .chezmoi.osRelease.id "arch" }}
+{{- if eq .osid "linux-arch" }}
 
     echo "Installing initial packages for Arch Linux..."
     sudo pacman -Sy --noconfirm "${all_packages[@]}"
@@ -25,5 +25,13 @@ echo "${all_packages[@]}"
         cd -
         rm -rf /tmp/twemoji
     {{- end -}}
+
+{{- else if eq .osid "darwin" }}
+
+    echo "Installing HomeBrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    echo "Installing initial packages for macOS..."
+    brew install "${all_packages[@]}"
 
 {{- end -}}
