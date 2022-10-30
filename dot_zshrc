@@ -3,7 +3,7 @@
 # zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
-PATH=$HOME/go/bin:$PYENV_ROOT/shims:$PYENV_ROOT/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.config/zsh/ohmyzsh
@@ -96,6 +96,11 @@ export NVM_ROOT="$HOME/.nvm"
 # Javascript & Node, terrible just every step of the way. Ugh.
 export NVM_USE_VERSION="v16.18.0"
 export PATH=$NVM_ROOT/versions/node/$NVM_USE_VERSION/bin:$PATH
+
+# Go
+# ===
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
 
 # Uncomment this to enable the built-in profiler
 # This must be at the end
