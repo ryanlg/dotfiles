@@ -126,6 +126,7 @@ typings/
 # Python
 __pycache__/*
 *.pyc
+.tox
 
 # VSCode settings
 .vscode/

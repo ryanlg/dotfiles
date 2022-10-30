@@ -3,7 +3,7 @@
 # zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
-PATH=$HOME/go/bin:$GO$PYENV_ROOT/shims:$PYENV_ROOT/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.config/zsh/ohmyzsh
@@ -30,7 +30,18 @@ COMPLETION_WAITING_DOTS="true"
 ZSH_CUSTOM=$HOME/.config/zsh/custom
 
 # ZSH Plugins
-plugins=(git tmux docker virtualenv)
+plugins=(
+    ag
+    archlinux
+    docker
+    docker-compose
+    gh
+    git
+    ripgrep
+    systemd
+    tmux
+    virtualenv
+)
 
 # Initialize oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -73,6 +84,23 @@ eval "$(starship init zsh)" # Initialization
 # ==============
 export PYENV_ROOT="$HOME/.pyenv"
 export PYTHONPATH=$test_qa_path/tests:$test_qa_path/lib
+
+# Javascript & Node
+# ==============
+export NVM_ROOT="$HOME/.nvm"
+
+# After years, NVM is still one of the slowest shell things in history. It ALSO
+# doesn't symlink the global/latest version that you are using to a fixed name
+# like how pyenv is doing it. So we have to specify this version statically to
+# make things faster.
+# Javascript & Node, terrible just every step of the way. Ugh.
+export NVM_USE_VERSION="v16.18.0"
+export PATH=$NVM_ROOT/versions/node/$NVM_USE_VERSION/bin:$PATH
+
+# Go
+# ===
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
 
 # Uncomment this to enable the built-in profiler
 # This must be at the end
