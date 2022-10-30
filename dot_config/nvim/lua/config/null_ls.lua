@@ -52,10 +52,10 @@ null_ls.setup({
         },
 
         -- Use `yapf` as the range formatter
-        null_ls.builtins.formatting.yapf.with{
-            -- Disable global formatting for YAPF. That is up to `black`.
-            method = require("null-ls.methods").internal.RANGE_FORMATTING,
-        },
+        -- null_ls.builtins.formatting.yapf.with{
+        --     -- Disable global formatting for YAPF. That is up to `black`.
+        --     method = require("null-ls.methods").internal.RANGE_FORMATTING,
+        -- },
 
         -- Use `black` as the buffer formatter
         null_ls.builtins.formatting.black,
