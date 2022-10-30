@@ -1,0 +1,10 @@
+git config --global core.excludesfile ~/.gitignore
+
+git config --global user.name "Ryan Liang"
+{{- if .platform.is_personal -}}
+git config --global user.signingkey 9CBB8F8A57AFAA19!
+git config --global commit.gpgsign true
+git config --global user.email "ryan@ryanl.io"
+{{- else -}}
+git config --global user.email "ryan_liang@dell.com"
+{{- end }}
