@@ -18,7 +18,17 @@ alias 'ssh#'="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
 alias scp!="scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o User=root"
 
 
+{{ if eq .osid "darwin" -}}
 # nektos/act
 # =============
 # Make `act` use `colima`'s socket and force amd64
 alias act="DOCKER_HOST=unix://$HOME/.colima/default/docker.sock act --container-architecture linux/amd64"
+{{- end }}
+
+
+{{ if .platform.is_personal -}}
+# casey/just
+# =============
+alias j!="just!"
+alias just!="just --justfile ~/.user.justfile --working-directory ."
+{{- end }}

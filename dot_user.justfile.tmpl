@@ -1,0 +1,27 @@
+# Justfile
+# ============
+# This Justfile contains a list of commands that are meant to be globally available.
+# They can be invoked by `casey/just` through `just --justfile <path_to_this_file>`.
+# There should be a couple alias in your shell for this exact action: `j!` and `just!`.
+
+
+_default:
+    @echo "You are using the global Justfile located at '~/.user.justfile'."
+    @just --justfile {{ "{{justfile()}}" }} --list
+
+
+{{ if .platform.is_personal -}}
+# Use govc to query vcenter.bedrock using `saltmaster` user/pass in 1Password
+govc +args:
+    GOVC_USERNAME=op://Personal/pv2eijkwaoel2rbzp6jj5ijxnm/username \
+    GOVC_PASSWORD=op://Personal/pv2eijkwaoel2rbzp6jj5ijxnm/password \
+    op run -- \
+        docker run \
+            --platform linux/amd64 \
+            -e GOVC_URL=https://vcenter.bedrock.ryanl.io \
+            -e GOVC_INSECURE=true \
+            -e GOVC_USERNAME \
+            -e GOVC_PASSWORD \
+            --rm -it \
+            vmware/govc /govc {{ "{{args}}" }}
+{{- end }}
