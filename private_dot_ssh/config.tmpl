@@ -2,6 +2,7 @@
 {{ if not .platform.is_personal -}}
 
 {{ else -}}
+Include /Users/ryan/.colima/ssh_config
 
 Host ryangithub
     HostName github.com
@@ -10,15 +11,10 @@ Host ryangithub
     IdentitiesOnly yes
 
 Host saltmaster
-    HostName saltmaster.bedrock.ryanl.io
+    HostName salt.bedrock.ryanl.io
     User saltmaster
-    IdentityFile ~/workspace/code/ryhino/keys/ssh/saltmaster/saltmaster
-    IdentitiesOnly yes
 
-Host keeper
-    HostName keeper.bedrock.ryanl.io
-    User keeper
-    IdentityFile ~/workspace/code/ryhino/keys/ssh/keeper/keeper
-    IdentitiesOnly yes
+Host *
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 {{- end -}}
