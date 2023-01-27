@@ -1,13 +1,24 @@
+# Frequently Used
+# =============
 alias ws='cd ~/workspace'
 alias re='.. && -'
 alias c='clear'
 alias vim='nvim'
 
+
+# SSH
+# =============
 # Log in with root and not saving to known host. Used to log into random clusters.
 alias ssh!="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -l root"
 
 # Log in without saving to known host, but you can customize the user. Used to log into random servers.
 alias 'ssh#'="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "
 
-# Grab somthing from remote host without saving to known host
+# Grab something from remote host without saving to known host
 alias scp!="scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o User=root"
+
+
+# nektos/act
+# =============
+# Make `act` use `colima`'s socket and force amd64
+alias act="DOCKER_HOST=unix://$HOME/.colima/default/docker.sock act --container-architecture linux/amd64"
