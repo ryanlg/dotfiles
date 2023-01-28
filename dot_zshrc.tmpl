@@ -32,16 +32,20 @@ ZSH_CUSTOM=$HOME/.config/zsh/custom
 # ZSH Plugins
 plugins=(
     ag
-    archlinux
     docker
     docker-compose
     fzf
     gh
     git
     ripgrep
-    systemd
     tmux
     virtualenv
+{{ if eq .osid "linux-arch" }}
+
+    # Arch Linux specific
+    archlinux
+    systemd
+{{ end -}}
 )
 
 # Initialize oh-my-zsh
