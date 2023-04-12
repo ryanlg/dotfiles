@@ -26,9 +26,7 @@ alias act="DOCKER_HOST=unix://$HOME/.colima/default/docker.sock act --container-
 {{- end }}
 
 
-{{ if .platform.is_personal -}}
 # casey/just
 # =============
 alias j!="just!"
 alias just!="just --justfile ~/.user.justfile --working-directory ."
-{{- end }}
