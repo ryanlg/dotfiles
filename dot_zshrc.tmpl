@@ -53,6 +53,16 @@ source $ZSH/oh-my-zsh.sh
 # Enable zoxide
 eval "$(zoxide init zsh)"
 
+# History
+# ==============
+# Expand size of history
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
+export SAVEHIST=1000000000
+
+# Immediately append history instead of wait till shell exit
+setopt INC_APPEND_HISTORY
+
 ######################
 # User configuration
 ######################
