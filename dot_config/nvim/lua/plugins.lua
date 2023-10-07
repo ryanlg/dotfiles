@@ -88,10 +88,10 @@ return require("packer").startup(function()
 
 
     -- Visuals
-    use {
-        "lukas-reineke/indent-blankline.nvim",
-        config = [[require "config.indent_blankline"]]
-    }  -- Indent guides
+    -- use {
+    --     "lukas-reineke/indent-blankline.nvim",
+    --     config = [[require "config.indent_blankline"]]
+    -- }  -- Indent guides
     use "kyazdani42/nvim-web-devicons"  -- Pretty icons
     use "ryanlg/lights-off"  -- Your own custom theme
     use {
