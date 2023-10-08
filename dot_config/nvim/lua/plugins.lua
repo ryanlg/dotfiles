@@ -5,10 +5,6 @@ return require("packer").startup(function()
     }
 
 
-
-    use "lewis6991/impatient.nvim" -- Improve startup time by compiling Lua to bytecodes
-
-
     -- Search
     use {
         {

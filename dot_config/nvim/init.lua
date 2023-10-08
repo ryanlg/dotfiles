@@ -1,6 +1,6 @@
 -- Load impatient for it to reduce startup time. Must be called
 -- before all Lua plugins are loaded.
-require "impatient"
+vim.loader.enable()
 
 -- Shorthands to accessors
 local set  = vim.opt
