@@ -10,6 +10,11 @@
 {{- $is_personal := promptBool "Is this machine used for perosnal stuff? Answer falsey for a work machine" -}}
 {{ $needs_bootstrap := promptBool "Do you want to run the bootstrap script" -}}
 
+# Use nvim for diff'ing
+[merge]
+    command = "nvim"
+    args = ["-d", "{{ "{{" }} .Destination {{ "}}" }}", "{{ "{{" }} .Source {{ "}}" }}", "{{ "{{" }} .Target {{ "}}" }}"]
+
 [data.platform]
     needs_gui = {{ $needs_gui }}
     is_virtual = {{ $is_virtual }}
