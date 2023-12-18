@@ -91,6 +91,13 @@ return require("packer").startup(function()
     use "kyazdani42/nvim-web-devicons"  -- Pretty icons
     use "ryanlg/lights-off"  -- Your own custom theme
     use {
+        "EdenEast/nightfox.nvim",
+        config = [[
+            require "config/nightfox"
+            vim.cmd 'colorscheme carbonfox'
+        ]]
+    }
+    use {
         "nvim-lualine/lualine.nvim",
         config = [[require "config.lualine"]]
     }  -- Status line
