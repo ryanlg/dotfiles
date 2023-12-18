@@ -11,5 +11,6 @@
 {{- if ne .chezmoi.os "linux" -}}
 
 .local/share/fonts/
+menlo-nerd-font*
 
 {{ end -}}
