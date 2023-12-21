@@ -1,0 +1,36 @@
+# bootstrap.yaml
+# --------------
+# Make sure chezmoi can properly initialize and apply the dotfiles on a brand
+# new machine.
+#
+# Currently, we only have tests for macOS.
+
+name: Test Bootstrapping
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  personal-macos:
+    runs-on: macos-13
+    steps:
+      - name: checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
+
+      - name: install `chezmoi`
+        run: brew install chezmoi
+
+      - name: init and apply dotfiles
+        run: >
+          chezmoi
+          --source ${{ github.workspace }}
+          init
+          --apply
+          --promptBool "Is this machine running virtually=false,Is this machine used for personal stuff? Answer falsey for a work machine=false,Do you want to run the bootstrap script=true"
+
+      - name: Run tests
+        run: |
+          # Add your test commands here
+          echo "Run your specific tests to verify dotfiles"
