@@ -1,5 +1,4 @@
 {{- if .bootstrap.needs_bootstrap -}}
-
 #! /usr/bin/env bash
 
 echo "Bootstrapping new environment..."
@@ -27,7 +26,7 @@ echo "Current environment is${platform_description}"
 {{ template "scripts/install-certs.tmpl" . }}
 {{ end }}
 
-{{ template "scripts/config-services.tmpl" . }}
+{{ template "scripts/configure-services.tmpl" . }}
 
 {{ template "scripts/configure-git.tmpl" . }}
 
