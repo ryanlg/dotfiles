@@ -30,17 +30,14 @@ ZSH_CUSTOM=$HOME/.config/zsh/custom
 
 # ZSH Plugins
 plugins=(
-    ag
     docker
     docker-compose
     fzf
     gh
     git
-    ripgrep
     tmux
     virtualenv
 {{ if eq .osid "linux-arch" }}
-
     # Arch Linux specific
     archlinux
     systemd
