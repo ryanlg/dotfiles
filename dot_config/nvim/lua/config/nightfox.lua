@@ -173,8 +173,8 @@ local groups = {
     -- TermCursor      = {}, -- cursor in a focused terminal
     -- TermCursorNC    = {}, -- cursor in an unfocused terminal
     -- ErrorMsg        = { fg = spec.diag.error }, -- error messages on the command line
-    WinSeperator    = { fg = "fg2" }, -- the column separating vertically split windows
-    VertSplit       = { link = "WinSeperator" }, -- the column separating vertically split windows
+    WinSeparator    = { fg = "fg3" }, -- the column separating vertically split windows
+    VertSplit       = { link = "WinSeparator" }, -- the column separating vertically split windows
     -- Folded          = { fg = spec.fg3, bg = spec.bg2 }, -- line used for closed folds
     -- FoldColumn      = { fg = spec.fg3 }, -- 'foldcolumn'
     -- SignColumn      = { fg = spec.fg3 }, -- column where |signs| are displayed
@@ -191,8 +191,8 @@ local groups = {
     -- NonText         = { fg = spec.bg4 }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     -- Normal          = { fg = spec.fg1, bg = trans and "NONE" or spec.bg1 }, -- normal text
     -- NormalNC        = { fg = spec.fg1, bg = (inactive and spec.bg0) or (trans and "NONE") or spec.bg1 }, -- normal text in non-current windows
-    -- NormalFloat     = { fg = spec.fg1, bg = spec.bg0 }, -- Normal text in floating windows.
-    -- FloatBorder     = { fg = spec.fg3 }, -- war
+    NormalFloat     = { fg = "fg1", bg = "bg3" }, -- Normal text in floating windows.
+    FloatBorder     = { fg = "fg3" }, -- war
     Pmenu           = { fg = "bg0", bg = "sel0" }, -- Popup menu: normal item.
     PmenuSel        = { fg = "bg0", bg = "sel1" }, -- Popup menu: selected item.
     PmenuSbar       = { link = "Pmenu" }, -- Popup menu: scrollbar.
